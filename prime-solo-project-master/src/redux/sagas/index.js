@@ -2,6 +2,13 @@ import { all } from 'redux-saga/effects';
 import loginSaga from './loginSaga';
 import registrationSaga from './registrationSaga';
 import userSaga from './userSaga';
+import productsSaga from './productsSaga';
+import storesSaga from './storesSaga';
+import orderSaga from './orderSaga';
+import doughOrderSaga from './doughOrderSaga';
+import cheeseOrderSaga from './cheeseOrderSaga';
+import meatOrderSaga from './meatOrderSaga';
+import cookieOrderSaga from './cookieOrderSaga';
 
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
@@ -12,8 +19,15 @@ import userSaga from './userSaga';
 // and login triggers setting the user
 export default function* rootSaga() {
   yield all([
+    cookieOrderSaga(),
+    meatOrderSaga(),
+    cheeseOrderSaga(),
+    doughOrderSaga(),
     loginSaga(),
     registrationSaga(),
     userSaga(),
+    productsSaga(),
+    storesSaga(),
+    orderSaga(),
   ]);
 }
