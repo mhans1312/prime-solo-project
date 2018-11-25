@@ -15,7 +15,7 @@ function* getCookie(action) {
 }
 
 function* cookieOrderSaga() {
-    yield takeEvery('GET_COOKIE', getCheese);
+    yield takeEvery('GET_COOKIE', getCookie);
   }
 
 export default cookieOrderSaga;

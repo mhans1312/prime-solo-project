@@ -13,6 +13,7 @@ const userRouter = require('./routes/user.router');
 const productsRouter = require('./routes/products.router');
 const storeRouter = require('./routes/stores.router');
 const inventoryRouter = require('./routes/order.router');
+const roleRouter = require('./routes/role.router');
 
 // Body parser middleware
 app.use(bodyParser.json());
@@ -30,6 +31,7 @@ app.use('/api/user', userRouter);
 app.use('/products', productsRouter);
 app.use('/stores', storeRouter);
 app.use('/inventory', inventoryRouter);
+app.use('/role', roleRouter);
 
 // Serve static files
 app.use(express.static('build'));
