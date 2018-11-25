@@ -10,6 +10,7 @@ import cheeseOrderSaga from './cheeseOrderSaga';
 import meatOrderSaga from './meatOrderSaga';
 import cookieOrderSaga from './cookieOrderSaga';
 import roleSaga from './roleSaga';
+import personSaga from './personSaga';
 
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
@@ -20,6 +21,7 @@ import roleSaga from './roleSaga';
 // and login triggers setting the user
 export default function* rootSaga() {
   yield all([
+    personSaga(),
     roleSaga(),
     cookieOrderSaga(),
     meatOrderSaga(),

@@ -36,7 +36,7 @@ class InfoPage extends Component {
 
   render(){
     return(
-      <div>
+      <div style={{display: 'flex', justifyContent: 'center'}}>
         <form>
         <div style={{width: 700, margin: 'auto'}}>
           <button onClick={this.handleClickDough} 

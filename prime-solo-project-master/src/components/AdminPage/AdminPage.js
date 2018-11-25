@@ -1,5 +1,17 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import { TextField, Select, withStyles, MenuItem } from '@material-ui/core';
+import InputLabel from '@material-ui/core/InputLabel';
+import Input from '@material-ui/core/Input';
+import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
+import classNames from 'classnames';
+import FormControl from '@material-ui/core/FormControl';
 
 class AdminPage extends Component {
     
@@ -11,6 +23,7 @@ class AdminPage extends Component {
     componentDidMount(){
         this.getStores();
         this.getRole();
+        this.getPerson();
       }
       
     getStores(){
@@ -22,6 +35,13 @@ class AdminPage extends Component {
         console.log('in getRole')
         this.props.dispatch({type: 'GET_ROLE'})
     }
+
+    getPerson(){
+        console.log('in getPerson')
+        this.props.dispatch({type: 'GET_PERSON'})
+    }
+
+
 
     handleChange = event => {
         console.log('handleChange', event.target.value)
@@ -44,47 +64,58 @@ class AdminPage extends Component {
         })
       }
 
+      deleteProject = (personId) => {
+        this.props.dispatch({type: 'DELETE_PERSON', payload: personId})
+    }
+
     render(){
         return (
             <div style={{display: 'flex', justifyContent: 'center'}}>
             <div>
                 <form>
                     <h3>Add User</h3>
-                    <input onChange={this.state.handleChange} value={this.state.username} 
+                    <Input onChange={this.state.handleChange} value={this.state.username} 
                         name="username" placeholder="Username"/>
-                    <input onChange={this.state.handleChange} value={this.state.password}
+                    <Input onChange={this.state.handleChange} value={this.state.password}
                         name="password" placeholder="Password" />
-                    <select onChange={this.handleInputRole}>
-                        <option name="role" value="" selected disabled hidden>Select Role</option>
+                            <InputLabel>Select Role</InputLabel>
+                    <Select onChange={this.handleInputRole} label="Select Role">
+                        {/* <MenuItem name="role">Select Role</MenuItem> */}
                             {this.props.reduxState.role.map(role =>
-                                <option key={role.id} value={role.id}>{role.role}</option>)}
-                    </select>
-                    <select onChange={this.handleInputStore}>
-                        <option name="store" value="" selected disabled hidden>Select Store</option>
+                                <MenuItem key={role.id} value={role.id}>{role.role}</MenuItem>)}
+                    </Select>
+                    <InputLabel>Select Store</InputLabel>
+                    <Select onChange={this.handleInputStore}>
+                        {/* <MenuItem name="store" >Select Store</MenuItem> */}
                             {this.props.reduxState.stores.map(store =>
-                        <option key={store.id} value={store.id}>{store.name}</option>)}
-                    </select><br/>
+                        <MenuItem key={store.id} value={store.id}>{store.name}</MenuItem>)}
+                    </Select><br/>
 
                 </form>
                 <h3>Manage Users</h3>
-                <table>
-                    <thead>
-                        <tr>
-                            <td>Name</td>
-                            <td>Role</td>
-                            <td>Delete</td>
-                            <td>Edit</td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <button>Delete</button>
-                            <button>Edit</button>
-                        </tr>
-                     </tbody>
-                </table>
+                <Table>
+                    <TableHead>
+                        <TableRow>
+                            <TableCell>Name</TableCell>
+                            <TableCell>Role</TableCell>
+                            <TableCell>Delete</TableCell>
+                            <TableCell>Edit</TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {
+                            this.props.reduxState.person.map(person =>
+                                <TableRow key={person.id}>
+                                    <TableCell>{person.username}</TableCell>
+                                    <TableCell></TableCell>
+                                <TableCell><Button key={person.id} 
+                                onClick={()=> this.deleteProject(person.id)}>DELETE</Button></TableCell>
+                                <TableCell><Button>Edit</Button></TableCell>
+                    </TableRow>)
+                        }
+                            
+                     </TableBody>
+                </Table>
             </div>
         </div>
         )
