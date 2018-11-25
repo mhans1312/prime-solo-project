@@ -48,7 +48,6 @@ class AdminPage extends Component {
         return (
             <div style={{display: 'flex', justifyContent: 'center'}}>
             <div>
-                <h2>Manage Users</h2>
                 <form>
                     <h3>Add User</h3>
                     <input onChange={this.state.handleChange} value={this.state.username} 
@@ -67,8 +66,27 @@ class AdminPage extends Component {
                     </select><br/>
 
                 </form>
+                <h3>Manage Users</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <td>Name</td>
+                            <td>Role</td>
+                            <td>Delete</td>
+                            <td>Edit</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <button>Delete</button>
+                            <button>Edit</button>
+                        </tr>
+                     </tbody>
+                </table>
             </div>
-            </div>
+        </div>
         )
     }
 }

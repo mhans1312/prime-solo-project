@@ -5,20 +5,15 @@ import {
   Redirect,
   Switch,
 } from 'react-router-dom';
-
 import {connect} from 'react-redux';
-
-
 import Nav from '../Nav/Nav';
 import Footer from '../Footer/Footer';
-
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
-
 import AboutPage from '../AboutPage/AboutPage';
 import UserPage from '../UserPage/UserPage';
 import InfoPage from '../InfoPage/InfoPage';
 import AdminPage from '../AdminPage/AdminPage';
-
+import OrderPage from '../OrderPage/OrderPage';
 import './App.css';
 
 class App extends Component {
@@ -56,6 +51,13 @@ class App extends Component {
               exact
               path="/commissary"
               component={InfoPage}
+            />
+            {/* This works the same as the other protected route, except that if the user is logged in,
+            they will see the info page instead. */}
+            <ProtectedRoute
+              exact
+              path="/order"
+              component={OrderPage}
             />
             {/* If none of the other routes matched, we will show a 404. */}
             <ProtectedRoute

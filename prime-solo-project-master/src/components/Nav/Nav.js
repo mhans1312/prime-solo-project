@@ -29,7 +29,6 @@ const Nav = (props) => (
           <Link className="nav-link" to="/commissary">
             Commissary Page
           </Link>
-          <LogOutButton className="nav-link"/>
         </>
       )}
       {props.user.id && (
@@ -37,14 +36,13 @@ const Nav = (props) => (
           <Link className="nav-link" to="/order">
             Order Page
           </Link>
-          <LogOutButton className="nav-link"/>
         </>
       )}
       {/* Always show this link since the about page is not protected */}
       <Link className="nav-link" to="/about">
         About
       </Link>
-      
+      <LogOutButton className="nav-link"/>
     </div>
   </div>
 );
