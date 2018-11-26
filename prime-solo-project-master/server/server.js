@@ -12,7 +12,7 @@ const passport = require('./strategies/user.strategy');
 const userRouter = require('./routes/user.router');
 const productsRouter = require('./routes/products.router');
 const storeRouter = require('./routes/stores.router');
-const inventoryRouter = require('./routes/order.router');
+const inventoryRouter = require('./routes/inventory.router');
 const roleRouter = require('./routes/role.router');
 const personRouter = require('./routes/person.router');
 
