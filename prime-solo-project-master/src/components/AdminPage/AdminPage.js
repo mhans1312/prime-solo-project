@@ -94,7 +94,7 @@ class AdminPage extends Component {
                 </form>
                 <h3>Manage Users</h3>
                 <Table>
-                    <TableHead>
+                    <TableHead style={{margin: 'auto'}}>
                         <TableRow>
                             <TableCell>Name</TableCell>
                             <TableCell>Role</TableCell>
