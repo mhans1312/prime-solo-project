@@ -27,7 +27,7 @@ class ParsPage extends Component{
   }
 
   handleEdit(event){
-    console.log()
+    console.log('handleEdit', event.target.value)
   }
 
   // getStorePars = event => {

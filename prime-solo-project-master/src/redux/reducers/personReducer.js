@@ -1,5 +1,5 @@
 const person = (state = [], action) => {
-    console.log('in person reducer', state);
+    // console.log('in person reducer', state);
     switch (action.type) {
         case 'SET_PERSON':
             return action.payload;

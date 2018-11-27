@@ -1,5 +1,5 @@
 const meatOrder = (state = [], action) => {
-    console.log('in meatOrder reducer', state);
+    // console.log('in meatOrder reducer', state);
     switch (action.type) {
         case 'SET_MEAT':
             return action.payload;
