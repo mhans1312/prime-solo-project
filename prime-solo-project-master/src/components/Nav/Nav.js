@@ -38,6 +38,13 @@ const Nav = (props) => (
           </Link>
         </>
       )}
+      {props.user.id && (
+        <>
+        <Link className="nav-link" to="/pars">
+          Pars Page
+        </Link>
+        </>
+      )}
       {/* Always show this link since the about page is not protected */}
       <Link className="nav-link" to="/about">
         About

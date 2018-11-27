@@ -14,6 +14,7 @@ import UserPage from '../UserPage/UserPage';
 import InfoPage from '../InfoPage/InfoPage';
 import AdminPage from '../AdminPage/AdminPage';
 import OrderPage from '../OrderPage/OrderPage';
+import ParsPage from '../ParsPage/ParsPage';
 import './App.css';
 
 class App extends Component {
@@ -59,6 +60,11 @@ class App extends Component {
               path="/order"
               component={OrderPage}
             />
+            <ProtectedRoute
+              exact
+              path="/pars"
+              component={ParsPage}
+              />
             {/* If none of the other routes matched, we will show a 404. */}
             <ProtectedRoute
               exact

@@ -6,7 +6,7 @@ router.get('/', (req, res) => {
     const sqlText = 'SELECT * FROM store ORDER BY id ASC';
     pool.query(sqlText)
     .then((result) => {
-      console.log('result from GET router request: ', result);
+      console.log('result from GET router request: ', result.rows);
       res.send(result.rows)
     })
     .catch((error) => {

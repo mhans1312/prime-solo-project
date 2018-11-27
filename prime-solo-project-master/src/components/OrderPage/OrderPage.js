@@ -26,7 +26,7 @@ class OrderPage extends Component{
   state = {
     date: '',
     store: '',
-
+    products: []
   }
 
   addOrder = event => {
@@ -36,7 +36,8 @@ class OrderPage extends Component{
     this.setState({
       ...this.state,
       date: '',
-      store: ''
+      store: '',
+      products: [],
     })
     console.log('sent to POST: ', this.state)
     alert("Order submitted!")
@@ -52,6 +53,7 @@ console.log('in getStore')
 this.props.dispatch({type: 'GET_STORES'})
 
 }
+
 getProducts(){
   console.log('in getProducts');
   this.props.dispatch({type: 'GET_PRODUCTS'})
@@ -61,7 +63,7 @@ handleInput = event => {
   console.log('handleInput', event.target.name)
   this.setState({
     ...this.state,
-      [event.target.name]: event.target.value
+      products: [...this.state.products, {id: parseInt(event.target.name), count: parseInt(event.target.value)}]
   })
 }
 
@@ -69,6 +71,13 @@ handleInputStore = event => {
   console.log('handleInputStore', event.target.value)
   this.setState({
       store: event.target.value
+  })
+}
+
+handleInputDate = event => {
+  console.log('handleInputStore', event.target.value)
+  this.setState({
+      date: event.target.value
   })
 }
 
@@ -82,20 +91,20 @@ handleInputStore = event => {
                 <option key={store.id} value={store.id}>{store.name}</option>)}
             </select><br/>
             <input id="date" label="date" type="date" placeholder="date" name="date" 
-              onChange={this.handleInput} value={this.state.date}/>
+              onChange={this.handleInputDate} value={this.state.date}/>
         </div>
         <form onSubmit={this.addOrder}>
           <table style={{width: 325, margin: 'auto'}}>
             <thead>
               <tr style={{backgroundColor: '#2E4892', color: '#F8F000'}}>
-                <th>Item</th><th>On Hand</th><th>Par</th>
+                <th>Item</th><th>On Hand</th>
               </tr>
             </thead>
             <tbody>
               {this.props.reduxState.products.map(product => 
-                <tr>
-                  <td key={product.uniqueId} value={product.uniqueId}>{product.description}</td>
-                  <td><input onChange={this.handleInput} name={product.description} placeholder="On Hand"></input></td>
+                <tr key={product.id}>
+                  <td value={product.uniqueId}>{product.description}</td>
+                  <td><input onChange={this.handleInput} name={product.id} placeholder="On Hand"></input></td>
                 </tr>)}
                 </tbody>
           </table>

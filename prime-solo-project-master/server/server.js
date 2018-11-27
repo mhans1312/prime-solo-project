@@ -15,6 +15,7 @@ const storeRouter = require('./routes/stores.router');
 const inventoryRouter = require('./routes/inventory.router');
 const roleRouter = require('./routes/role.router');
 const personRouter = require('./routes/person.router');
+const parsRouter = require('./routes/pars.router');
 
 // Body parser middleware
 app.use(bodyParser.json());
@@ -34,6 +35,7 @@ app.use('/stores', storeRouter);
 app.use('/inventory', inventoryRouter);
 app.use('/role', roleRouter);
 app.use('/person', personRouter);
+app.use('/pars', parsRouter);
 
 // Serve static files
 app.use(express.static('build'));
