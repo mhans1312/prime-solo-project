@@ -15,4 +15,16 @@ router.get('/:id', (req, res) => {
     })
   });
 
+  router.put('/', (req, res) => {
+      const sqlText = `UPDATE pars SET $1 = $2
+      WHERE store_id = $3 and product_id = $4;`
+      pool.query(sqlText, [req.params])
+      .then((result) => {
+          console.log('result from pars PUT', result.rows);
+      })
+      .catch((error) => {
+          console.log(`PUT error in ${sqlText}`, error)
+      })
+  })
+
 module.exports = router;

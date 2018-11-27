@@ -14,9 +14,22 @@ function* getPars(action) {
     
 }
 
+function* editPars(action) {
+    console.log('in editPars (saga)', action)
+    try{
+        const response = yield call(axios.put, `/pars/`, action.payload);
+        yield put({type: 'SET_PARS', payload: response.data});
+        console.log('edited pars are', response.data)
+    }
+    catch(error){
+        console('error with pars EDIT request', error)
+    }
+}
+
 
 function* ParsSaga() {
     yield takeEvery('GET_PARS', getPars);
+    yield takeEvery('EDIT_PARS', editPars);
   }
 
 export default (ParsSaga)

@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
+import axios from 'axios'
 
 class ParsPage extends Component{
 
   componentDidMount(){
-    this.getProducts();
     this.getStores();
   }
 
@@ -13,43 +13,20 @@ class ParsPage extends Component{
     this.props.dispatch({type: 'GET_STORES'})
   }
 
-  getProducts(){
-    console.log('in getProducts');
-    this.props.dispatch({type: 'GET_PRODUCTS'})
-  }
-
   handleInputStore = event => {
     console.log('handleInputStore', event.target.value)
     this.props.dispatch({type: 'GET_PARS', payload: event.target.value})
     this.setState({
         store: event.target.value
     })
+    console.log('state?', this.state)
   }
 
-  handleEdit(event){
-    console.log('handleEdit', event.target.value)
+  handleEdit = (event) => {
+    this.props.dispatch({type: 'EDIT_PARS'})
+    console.log()
+    
   }
-
-  // getStorePars = event => {
-  //   console.log('in getStorePars', event.target.value)
-  //   this.props.dispatch({type: 'GET_PARS', payload: event.target.value})
-  //   this.setState({
-  //     ...this.state
-  //   })
-  // }
-
-  // addPars= event => {
-  //   event.preventDefault();
-  //   console.log('in addPars', this.state)
-  //   this.props.dispatch({type: 'ADD_PARS', payload: this.state})
-  //   this.setState({
-  //     ...this.state,
-  //     store: '',
-  //     products: [],
-  //   })
-  //   console.log('sent to POST: ', this.state)
-  //   alert("Pars submitted!")
-  // }
 
   render(){
     return(
@@ -89,21 +66,11 @@ class ParsPage extends Component{
                 </tr>)}
                 </tbody>
           </table>
-                <button type="submit">Submit</button>
         </form>
       </div>
     )
   }
 }
-
-{/* <td><input onChange={this.handleInput} name={product.id} placeholder="Set Par"></input></td>
-                  <td><input onChange={this.handleInput} name={product.id} placeholder="Set Par"></input></td>
-                  <td><input onChange={this.handleInput} name={product.id} placeholder="Set Par"></input></td>
-                  <td><input onChange={this.handleInput} name={product.id} placeholder="Set Par"></input></td>
-                  <td><input onChange={this.handleInput} name={product.id} placeholder="Set Par"></input></td>
-                  <td><input onChange={this.handleInput} name={product.id} placeholder="Set Par"></input></td>
-                  <td><input onChange={this.handleInput} name={product.id} placeholder="Set Par"></input></td> */}
-
 
 const mapStateToProps = reduxState => ({reduxState});
 // this allows us to use <App /> in index.js
