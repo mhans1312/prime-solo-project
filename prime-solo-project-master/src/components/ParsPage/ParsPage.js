@@ -2,40 +2,59 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios'
 
+
 class ParsPage extends Component{
 
   state = {
     store: '',
     mode:'view',
-    products: []
+    product_id: '',
+    parNum: 0,
+    parDay: '',
+    
   }
 
+  //populates the store selector on page load
   componentDidMount(){
     this.getStores();
   }
 
+  //handles the changes from the edit input field
   handleChange = (event) => {
     console.log('handleChange')
     this.setState({
       ...this.state,
-      products: [...this.state.products, {id: (this.props.reduxState.product_id), count: parseInt(event.target.value)}]
+      parNum: event.target.value,
+      
   })
 }
 
-  handleSave = () => {
+  //Gathers inputs and sends the PUT request to the database
+  handleSave = (event) => {
+    this.setState({
+      ...this.state,
+      mode: 'view',
+    });
     this.props.dispatch({type: 'EDIT_PARS', payload: this.state});
-    this.setState({...this.state, text: this.state.inputText, mode: 'view'});
   }
 
-  handleEdit = () => {
-    this.setState({...this.state, mode: 'edit'});
+  //Toggles the edit button to a save button
+  handleEdit = (parDay, product_id) => () => {
+    this.setState({
+      ...this.state,
+      mode: 'edit' + product_id,
+      product_id: product_id,
+      parDay: parDay
+    });
   }
 
+  //Gets the list of stores from the database table
   getStores(){
     console.log('in getStore')
     this.props.dispatch({type: 'GET_STORES'})
   }
 
+  //Sets the store id for the page.
   handleInputStore = event => {
     console.log('handleInputStore', event.target.value)
     this.props.dispatch({type: 'GET_PARS', payload: event.target.value})
@@ -45,30 +64,31 @@ class ParsPage extends Component{
     console.log('state?', this.state)
   }
 
-  renderInputField(){
-    if(this.state.mode === 'view'){
-    return<div></div>;
-    }else{   
+  //renders the input fields after hitting the edit button
+  renderInputField = (parDay, product_id) => {
+    if(this.state.mode === 'edit' + product_id + parDay){
       return (
-        <p>
-          <input onChange={this.handleChange} value={this.state.inputText}/>
-        </p>
-      )
+        <input onChange={this.handleChange}/>
+      );
+    }else{ 
+      return<div></div>;  
+      
     }
   }
 
-  renderButton(){
-    if(this.state.mode === 'view'){
-      return(
-        <button onClick={this.handleEdit}>
-        Edit Pars
-        </button>
-      );
-    }else{
+  //renders the edit/save button
+  renderButton = (parDay, product_id) => {
+    if(this.state.mode === 'edit' + product_id){
       return (
         <button onClick={this.handleSave}>
         Save
         </button>
+      );
+    }else{
+        return(
+          <button onClick={this.handleEdit(parDay, product_id)}>
+          Edit Pars
+          </button>
       )
     }
   }
@@ -83,39 +103,51 @@ class ParsPage extends Component{
                 <option key={store.id} value={store.id}>{store.name}</option>)}
             </select>
         </div>
+        {/* <div>
+          <select onChange={this.handleDay}>
+                <option name="day" value="" selected disabled hidden>Select Day</option>
+                <option name="monday">Monday</option>
+                <option name="tuesday">Tuesday</option>
+                <option name="wednesday">Wednesday</option>
+                <option name="thursday">Thursday</option>
+                <option name="friday">Friday</option>
+                <option name="saturday">Saturday</option>
+                <option name="sunday">Sunday</option>
+          </select>
+        </div> */}
         {/* {JSON.stringify(this.props.reduxState.pars)} */}
-        <form onSubmit={this.addOrder}>
+        <form>
           <table style={{width: 700, margin: 'auto'}}>
             <thead>
               <tr style={{backgroundColor: '#2E4892', color: '#F8F000'}}>
                 <th>Item</th>
                 <th>Monday Par<br/>
-                {this.renderButton()}</th>
+                </th>
                 <th>Tuesday Par<br/>
-                {this.renderButton()}</th>
+                </th>
                 <th>Wednesday Par<br/>
-                {this.renderButton()}</th>
+                </th>
                 <th>Thursday Par<br/>
-                {this.renderButton()}</th>
+                </th>
                 <th>Friday Par<br/>
-                {this.renderButton()}</th>
+                </th>
                 <th>Saturday Par<br/>
-                {this.renderButton()}</th>
+                </th>
                 <th>Sunday Par<br/>
-                {this.renderButton()}</th>
+                </th>
               </tr>
             </thead>
             <tbody style={{width: 500, margin: 'auto'}}>
               {this.props.reduxState.pars.map(par => 
                 <tr key={par.id}>
                   <td value={par.id}>{par.description}</td>
-                  <td>{par.monday_par}{this.renderInputField()}</td>
-                  <td>{par.tuesday_par}{this.renderInputField()}</td>
-                  <td>{par.wednesday_par}{this.renderInputField()}</td>
-                  <td>{par.thursday_par}{this.renderInputField()}</td>
-                  <td>{par.friday_par}{this.renderInputField()}</td>
-                  <td>{par.saturday_par}{this.renderInputField()}</td>
-                  <td>{par.sunday_par}{this.renderInputField()}</td>
+                  <td>{par.monday_par}{this.renderInputField('monday', par.product_id)}{this.renderButton('monday', par.product_id)}</td>
+                  <td>{par.tuesday_par}{this.renderInputField(par.product_id)}{this.renderButton(par.product_id)}</td>
+                  <td>{par.wednesday_par}{this.renderInputField(par.product_id)}{this.renderButton(par.product_id)}</td>
+                  <td>{par.thursday_par}{this.renderInputField(par.product_id)}{this.renderButton(par.product_id)}</td>
+                  <td>{par.friday_par}{this.renderInputField(par.product_id)}{this.renderButton(par.product_id)}</td>
+                  <td>{par.saturday_par}{this.renderInputField(par.product_id)}{this.renderButton(par.product_id)}</td>
+                  <td>{par.sunday_par}{this.renderInputField(par.product_id)}{this.renderButton(par.product_id)}</td>
                 </tr>)}
                 </tbody>
           </table>
