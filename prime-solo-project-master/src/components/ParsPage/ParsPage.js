@@ -55,7 +55,6 @@ class ParsPage extends Component{
 
   //Sets the store id for the page.
   handleInputStore = event => {
-    console.log('handleInputStore', event.target.value)
     this.props.dispatch({type: 'GET_PARS', payload: event.target.value})
     this.setState({
         ...this.state.store, store: event.target.value
@@ -64,7 +63,7 @@ class ParsPage extends Component{
 
   //renders the input fields after hitting the edit button
   renderInputField = (parDay, product_id) => {
-    if(this.state.mode === 'edit' + product_id && parDay == parDay){
+    if(this.state.mode === 'edit' + product_id && parDay === this.state.parDay){
       return (
         <input onChange={this.handleChange}/>
       );
@@ -76,7 +75,7 @@ class ParsPage extends Component{
 
   //renders the edit/save button
   renderButton = (parDay, product_id) => {
-    if(this.state.mode === 'edit' + product_id && parDay == parDay){
+    if(this.state.mode === 'edit' + product_id && parDay === this.state.parDay){
       return (
         <button onClick={this.handleSave}>
         Save
@@ -127,13 +126,13 @@ class ParsPage extends Component{
               {this.props.reduxState.pars.map(par => 
                 <tr key={par.id}>
                   <td value={par.id}>{par.description}</td>
-                  <td>{par.monday_par}{this.renderInputField('mon', par.product_id)}{this.renderButton('mon', par.product_id)}</td>
-                  <td>{par.tuesday_par}{this.renderInputField(par.product_id)}{this.renderButton(par.product_id)}</td>
-                  <td>{par.wednesday_par}{this.renderInputField(par.product_id)}{this.renderButton(par.product_id)}</td>
-                  <td>{par.thursday_par}{this.renderInputField(par.product_id)}{this.renderButton(par.product_id)}</td>
-                  <td>{par.friday_par}{this.renderInputField(par.product_id)}{this.renderButton(par.product_id)}</td>
-                  <td>{par.saturday_par}{this.renderInputField(par.product_id)}{this.renderButton(par.product_id)}</td>
-                  <td>{par.sunday_par}{this.renderInputField(par.product_id)}{this.renderButton(par.product_id)}</td>
+                  <td>{par.monday_par}{this.renderInputField('monday_par', par.product_id)}{this.renderButton('monday_par', par.product_id)}</td>
+                  <td>{par.tuesday_par}{this.renderInputField('tuesday_par', par.product_id)}{this.renderButton('tuesday_par', par.product_id)}</td>
+                  <td>{par.wednesday_par}{this.renderInputField('wednesday_par', par.product_id)}{this.renderButton('wednesday_par', par.product_id)}</td>
+                  <td>{par.thursday_par}{this.renderInputField('thursday_par', par.product_id)}{this.renderButton('thursday_par', par.product_id)}</td>
+                  <td>{par.friday_par}{this.renderInputField('friday_par', par.product_id)}{this.renderButton('friday_par', par.product_id)}</td>
+                  <td>{par.saturday_par}{this.renderInputField('saturday_par', par.product_id)}{this.renderButton('saturday_par', par.product_id)}</td>
+                  <td>{par.sunday_par}{this.renderInputField('sunday_par', par.product_id)}{this.renderButton('sunday_par', par.product_id)}</td>
                 </tr>)}
                 </tbody>
           </table>
