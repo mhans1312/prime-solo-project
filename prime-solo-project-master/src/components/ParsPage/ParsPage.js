@@ -16,6 +16,11 @@ class ParsPage extends Component{
   //populates the store selector on page load
   componentDidMount(){
     this.getStores();
+    
+  }
+
+  componentWillMount(){
+    this.refreshPars();
   }
 
   //handles the changes from the edit input field
@@ -30,11 +35,14 @@ class ParsPage extends Component{
 
   //Gathers inputs and sends the PUT request to the database
   handleSave = (event) => {
+    event.preventDefault();
     this.setState({
       ...this.state,
       mode: 'view',
     });
+    console.log('the state store is ', this.state.store)
     this.props.dispatch({type: 'EDIT_PARS', payload: this.state});
+    this.refreshPars();
   }
 
   //Toggles the edit button to a save button
@@ -48,13 +56,19 @@ class ParsPage extends Component{
   }
 
   //Gets the list of stores from the database table
-  getStores(){
+  getStores(event){
     console.log('in getStore')
     this.props.dispatch({type: 'GET_STORES'})
   }
 
+  refreshPars(){
+    console.log('refreshPars stores is ', this.state.store)
+    this.props.dispatch({type: 'GET_PARS', payload: this.state.store})
+  }
+
   //Sets the store id for the page.
   handleInputStore = event => {
+    
     this.props.dispatch({type: 'GET_PARS', payload: event.target.value})
     this.setState({
         ...this.state.store, store: event.target.value
@@ -65,7 +79,7 @@ class ParsPage extends Component{
   renderInputField = (parDay, product_id) => {
     if(this.state.mode === 'edit' + product_id && parDay === this.state.parDay){
       return (
-        <input onChange={this.handleChange}/>
+        <input size="5" onChange={this.handleChange}/>
       );
     }else{ 
       return<div></div>;  
@@ -84,7 +98,7 @@ class ParsPage extends Component{
     }else{
         return(
           <button onClick={this.handleEdit(parDay, product_id)}>
-          Edit Pars
+          Edit
           </button>
       )
     }
@@ -122,7 +136,7 @@ class ParsPage extends Component{
                 </th>
               </tr>
             </thead>
-            <tbody style={{width: 500, margin: 'auto'}}>
+            <tbody style={{width: 700}}>
               {this.props.reduxState.pars.map(par => 
                 <tr key={par.id}>
                   <td value={par.id}>{par.description}</td>

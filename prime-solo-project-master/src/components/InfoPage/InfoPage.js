@@ -34,12 +34,26 @@ class InfoPage extends Component {
     this.props.dispatch({type: 'GET_MIX'})
   }
 
+  handleInputStore = event => {
+    
+    this.props.dispatch({type: 'GET_COMM', payload: event.target.value})
+    this.setState({
+        ...this.state.store, store: event.target.value
+    })
+  }
+
 
   render(){
     return(
       <div>
+        <select onChange={this.handleInputStore}>
+            <option name="store" value="" selected disabled hidden>Select a Store</option>
+              {this.props.reduxState.stores.map(store =>
+                <option key={store.id} value={store.id}>{store.name}</option>)}
+            </select>
+
         
-        <div style={{width: 700, margin: 'auto'}}>
+        {/* <div style={{width: 700, margin: 'auto'}}>
           <Button variant="contained" color="default" onClick={this.handleClickDough} 
             value="dough" style={{width: 200, height: 50, margin: 10, fontSize: 15}}>Get Dough Order</Button><br/>
           <Button variant="contained" color="default" onClick={this.handleClickCheese} 
@@ -50,7 +64,7 @@ class InfoPage extends Component {
             value="cookie" style={{width: 200, height: 50, margin: 10, fontSize: 15}}>Get Cookies Order</Button><br/>
           <Button variant="contained" color="default" onClick={this.handleClickMix} 
             value="mix" style={{width: 200, height: 50, margin: 10, fontSize: 15}}>Get Mix Order</Button><br/>
-        </div>
+        </div> */}
         
       </div>
     )

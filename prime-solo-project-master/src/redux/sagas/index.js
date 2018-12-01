@@ -5,13 +5,14 @@ import userSaga from './userSaga';
 import productsSaga from './productsSaga';
 import storesSaga from './storesSaga';
 import orderSaga from './orderSaga';
-import doughOrderSaga from './doughOrderSaga';
-import cheeseOrderSaga from './cheeseOrderSaga';
-import meatOrderSaga from './meatOrderSaga';
-import cookieOrderSaga from './cookieOrderSaga';
+// import doughOrderSaga from './doughOrderSaga';
+// import cheeseOrderSaga from './cheeseOrderSaga';
+// import meatOrderSaga from './meatOrderSaga';
+// import cookieOrderSaga from './cookieOrderSaga';
 import roleSaga from './roleSaga';
 import personSaga from './personSaga';
 import parsSaga from './parsSaga';
+import commSaga from './commSaga';
 
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
@@ -25,10 +26,11 @@ export default function* rootSaga() {
     parsSaga(),
     personSaga(),
     roleSaga(),
-    cookieOrderSaga(),
-    meatOrderSaga(),
-    cheeseOrderSaga(),
-    doughOrderSaga(),
+    commSaga(),
+    // cookieOrderSaga(),
+    // meatOrderSaga(),
+    // cheeseOrderSaga(),
+    // doughOrderSaga(),
     loginSaga(),
     registrationSaga(),
     userSaga(),

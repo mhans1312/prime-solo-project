@@ -7,9 +7,17 @@ import React from 'react';
 
 const AboutPage = () => (
   <div>
-    <div>
+    <div style={{width: 325, margin: 'auto'}}>
+      <h2>Tech Used</h2>
       <p>
-        This about page is for anyone to read!
+        Javascript<br/>
+        CSS/HTML<br/>
+        Node.js<br/>
+        Express<br/>
+        SQL<br/>
+        React<br/>
+        Redux<br/>
+        Sagas<br/>
       </p>
     </div>
   </div>

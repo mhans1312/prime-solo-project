@@ -11,6 +11,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
       res.send(result.rows)
     })
     .catch((error) => {
+      res.sendStatus(500)
       console.log(`GET error ${sqlText}`, error);
     })
   });

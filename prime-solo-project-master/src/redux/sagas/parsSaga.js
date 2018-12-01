@@ -6,7 +6,6 @@ function* getPars(action) {
     try{
         const response = yield call(axios.get, `/pars/${action.payload}`);
         yield put({type: 'SET_PARS', payload: response.data});
-        console.log('pars are ', response.data);
     }
     catch(error){
         console.log('error with pars GET request', error);
@@ -17,9 +16,9 @@ function* getPars(action) {
 function* editPars(action) {
     console.log('in editPars (saga)', action)
     try{
-        const response = yield call(axios.put, `/pars/`, action.payload);
-        yield put({type: 'SET_PARS', payload: response.data});
-        console.log('edited pars are', response.data)
+        yield call(axios.put, `/pars/`, action.payload);
+        yield put({type: 'GET_PARS', payload: action.payload.store});
+        
     }
     catch(error){
         console('error with pars EDIT request', error)
