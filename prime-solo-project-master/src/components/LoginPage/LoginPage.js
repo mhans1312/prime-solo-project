@@ -31,7 +31,8 @@ class LoginPage extends Component {
 
   render() {
     return (
-      <div>
+      <div style={{width: 700, margin: 'auto'}}> 
+      
         {this.props.errors.loginMessage && (
           <h2
             className="alert"
@@ -71,9 +72,10 @@ class LoginPage extends Component {
               name="submit"
               value="Log In"
             />
+            
           </div>
         </form>
-        <center>
+        <div style={{width: 700, margin: 'auto'}}>
           <button
             type="button"
             className="link-button"
@@ -81,7 +83,7 @@ class LoginPage extends Component {
           >
             Register
           </button>
-        </center>
+          </div>
       </div>
     );
   }

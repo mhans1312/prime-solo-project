@@ -5,11 +5,11 @@ const { rejectUnauthenticated } = require('../modules/authentication-middleware'
 
 router.get('/:date', rejectUnauthenticated, (req, res) => {
     console.log('comm Date is ', req.params.date)
-    const sqlText = `SELECT * FROM orders
+    const sqlText = `SELECT line_item.id, line_item.quantity, products.description FROM orders
                         JOIN store on store.id = orders.store_id 
                         JOIN line_item on line_item.order_id = orders.id 
                         JOIN products on products.id = line_item.product_id
-                        ORDER BY orders.id;`;
+                        ORDER BY line_item.id;`;
     pool.query(sqlText, [])
     .then((result) => {
       console.log('result from comm GET router request: ', result.rows);

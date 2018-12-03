@@ -9,16 +9,15 @@ const AboutPage = () => (
   <div>
     <div style={{width: 325, margin: 'auto'}}>
       <h2>Tech Used</h2>
-      <p>
+      <h3>
         Javascript<br/>
         CSS/HTML<br/>
         Node.js<br/>
         Express<br/>
         SQL<br/>
-        React<br/>
-        Redux<br/>
-        Sagas<br/>
-      </p>
+        React with Redux/Saga<br/>
+        Material-UI<br/>
+      </h3>
     </div>
   </div>
 );
