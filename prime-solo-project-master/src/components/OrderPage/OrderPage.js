@@ -37,7 +37,7 @@ class OrderPage extends Component{
       ...this.state,
       date: '',
       store: '',
-      products: [],
+      products: [...this.state.products, {id: '', count: ''}],
     })
     console.log('sent to POST: ', this.state)
     alert("Order submitted!")
@@ -104,7 +104,7 @@ handleInputDate = event => {
               {this.props.reduxState.products.map(product => 
                 <tr key={product.id}>
                   <td value={product.id}>{product.description}</td>
-                  <td><input onChange={this.handleInput} name={product.id} placeholder="On Hand"></input></td>
+                  <td><input onBlur={this.handleInput} name={product.id} placeholder="On Hand"></input></td>
                 </tr>)}
                 </tbody>
           </table>
